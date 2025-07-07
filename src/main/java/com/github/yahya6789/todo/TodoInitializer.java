@@ -1,5 +1,7 @@
 package com.github.yahya6789.todo;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +19,9 @@ public class TodoInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (repository.count() == 0) {
-            repository.save(new Todo("Learn Spring Boot"));
-            repository.save(new Todo("Build a Todo API", true));
-            repository.save(new Todo("Explore HATEOAS"));
+            for (int i = 0; i < 55; i++) {
+                repository.save(new Todo("Todo " + i, ThreadLocalRandom.current().nextBoolean()));
+            }
         }
     }
 }
