@@ -28,4 +28,9 @@ public class Todo {
     public Todo(String title) {
         this.title = title;
     }
+
+    public Todo(String title, boolean completed) {
+        this.title = title;
+        this.completed = completed;
+    }
 }
