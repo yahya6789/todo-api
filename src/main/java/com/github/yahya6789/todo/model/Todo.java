@@ -7,11 +7,13 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Todo {
+public class Todo extends AbstractAuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
