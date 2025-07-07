@@ -37,7 +37,7 @@ public class TodoService {
 
     public void delete(Long id) {
         if (!repository.existsById(id)) {
-            throw new EntityNotFoundException("Todo with ID " + id + " not found");
+            new EntityNotFoundException("Todo ID not found: " + id);
         }
         repository.deleteById(id);
     }
