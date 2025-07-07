@@ -41,4 +41,10 @@ public class TodoService {
         }
         repository.deleteById(id);
     }
+
+    public Todo toggleCompleted(Long id) {
+        Todo todo = findById(id);
+        todo.setCompleted(!todo.isCompleted());
+        return repository.save(todo);
+    }
 }
