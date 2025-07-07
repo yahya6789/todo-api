@@ -5,21 +5,27 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @NotBlank
     private String title;
 
     private boolean completed = false;
+
+    // Required by JPA
+    protected Todo() {}
+
+    public Todo(String title) {
+        this.title = title;
+    }
 }
