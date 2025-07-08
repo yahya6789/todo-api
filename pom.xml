@@ -17,6 +17,7 @@
     </properties>
 
     <modules>
+        <module>common</module>
         <module>todo-service</module>
     </modules>
 

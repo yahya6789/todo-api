@@ -1,7 +1,7 @@
-package com.github.yahya6789.todo.exception;
+package com.github.yahya6789.common.exception;
 
-import com.github.yahya6789.todo.controller.ApiResponse;
-import com.github.yahya6789.todo.controller.ResponseFactory;
+import com.github.yahya6789.common.api.ApiResponse;
+import com.github.yahya6789.common.api.ResponseFactory;
 
 import jakarta.persistence.EntityNotFoundException;
 

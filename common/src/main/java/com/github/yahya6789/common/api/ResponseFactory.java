@@ -1,4 +1,4 @@
-package com.github.yahya6789.todo.controller;
+package com.github.yahya6789.common.api;
 
 public class ResponseFactory {
     public static <T> ApiResponse<T> success(String msg, T data) {
