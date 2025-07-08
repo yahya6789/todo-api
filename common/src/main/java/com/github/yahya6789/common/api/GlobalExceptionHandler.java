@@ -1,7 +1,4 @@
-package com.github.yahya6789.common.exception;
-
-import com.github.yahya6789.common.api.ApiResponse;
-import com.github.yahya6789.common.api.ResponseFactory;
+package com.github.yahya6789.common.api;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -19,23 +16,23 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Map<String, String>>> handleValidation(MethodArgumentNotValidException e) {
         Map<String, String> errors = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(
-            error -> errors.put(error.getField(), error.getDefaultMessage()));
+                error -> errors.put(error.getField(), error.getDefaultMessage()));
 
         return ResponseEntity.badRequest()
-            .body(ResponseFactory.failure("Validation failed", errors));
+                .body(ResponseFactory.failure("Validation failed", errors));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiResponse<String>> handleEntityNotFound(EntityNotFoundException e) {
         return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(ResponseFactory.failure(e.getMessage()));
+                .status(HttpStatus.NOT_FOUND)
+                .body(ResponseFactory.failure(e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<String>> handleGeneric(Exception e) {
         return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(ResponseFactory.failure(e.getMessage()));
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ResponseFactory.failure(e.getMessage()));
     }
 }
