@@ -11,7 +11,7 @@
     <groupId>com.github.yahya6789</groupId>
     <artifactId>todo-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Todo Service</name>
+    <name>todo-service</name>
 
     <dependencies>
         <dependency>

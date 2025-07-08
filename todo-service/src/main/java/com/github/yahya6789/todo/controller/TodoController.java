@@ -3,14 +3,10 @@ package com.github.yahya6789.todo.controller;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,11 +85,23 @@ public class TodoController {
     }
 
     private EntityModel<Todo> toEntityModel(Todo todo) {
-        List<Link> links = new ArrayList<>();
-        links.add(linkTo(methodOn(TodoController.class).findById(todo.getId())).withSelfRel());
-        links.add(linkTo(methodOn(TodoController.class).findAll(null, null)).withRel(relFor(Todo.class)));
-        links.add(linkTo(methodOn(TodoController.class).toggleComplete(todo.getId())).withRel("toggle-completed"));
-        return EntityModel.of(todo, links);
+        EntityModel<Todo> model = EntityModel.of(todo,
+                linkTo(methodOn(TodoController.class).findById(todo.getId())).withSelfRel(),
+                linkTo(methodOn(TodoController.class).findAll(null, null)).withRel(relFor(Todo.class)));
+
+        model.add(linkTo(methodOn(TodoController.class).toggleComplete(todo.getId()))
+                .withRel("toggle-completed")
+                .withType("PUT"));
+
+        if (!todo.isCompleted()) {
+            model.add(linkTo(methodOn(TodoController.class).update(todo.getId(), null))
+                    .withRel("update")
+                    .withType("PUT"));
+            model.add(linkTo(methodOn(TodoController.class).delete(todo.getId()))
+                    .withRel("delete")
+                    .withType("DELETE"));
+        }
+        return model;
     }
 
     private String relFor(Class<?> clazz) {
