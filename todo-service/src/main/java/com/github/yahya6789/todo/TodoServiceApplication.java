@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class TodoApplication {
+public class TodoServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TodoApplication.class, args);
+        SpringApplication.run(TodoServiceApplication.class, args);
     }
 }
