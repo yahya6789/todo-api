@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateTodoRequestDto {
     private String title;
-    private Long userId;
+    private long userId;
 
     public CreateTodoRequestDto() {
     }

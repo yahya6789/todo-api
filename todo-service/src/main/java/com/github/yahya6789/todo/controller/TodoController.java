@@ -22,7 +22,7 @@ import com.github.yahya6789.common.api.ApiResponse;
 import com.github.yahya6789.common.api.ResponseFactory;
 import com.github.yahya6789.common.dto.CreateTodoRequestDto;
 import com.github.yahya6789.common.dto.UserDto;
-import com.github.yahya6789.todo.external.UserServiceClient;
+import com.github.yahya6789.todo.external.UserServiceLookup;
 import com.github.yahya6789.todo.model.Todo;
 import com.github.yahya6789.todo.service.TodoService;
 
@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodoController {
     private final TodoService service;
-    private final UserServiceClient userServiceClient;
+    private final UserServiceLookup userServiceLookup;
 
     @GetMapping
     public ApiResponse<PagedModel<EntityModel<Todo>>> findAll(Pageable pageable,
@@ -52,16 +52,15 @@ public class TodoController {
 
     @PostMapping
     public ApiResponse<EntityModel<Todo>> create(@Valid @RequestBody CreateTodoRequestDto request) {
-        UserDto userDto = userServiceClient.findUserById(request.getUserId());
-        Todo todo = new Todo(userDto.getId(), request.getTitle());
-        Todo saved = service.create(todo);
-        return ResponseFactory.success("Todo created", toEntityModel(saved));
+        UserDto userDto = userServiceLookup.findUserById(request.getUserId());
+        Todo todo = service.create(new Todo(userDto.getId(), request.getTitle()));
+        return ResponseFactory.success("Todo created", toEntityModel(todo));
     }
 
     @PutMapping("/{id}")
     public ApiResponse<EntityModel<Todo>> update(@PathVariable Long id, @Valid @RequestBody Todo updated) {
-        Todo saved = service.update(id, updated);
-        return ResponseFactory.success("Todo updated", toEntityModel(saved));
+        Todo todo = service.update(id, updated);
+        return ResponseFactory.success("Todo updated", toEntityModel(todo));
     }
 
     @DeleteMapping("/{id}")
@@ -72,8 +71,8 @@ public class TodoController {
 
     @PatchMapping("/{id}/toggle-completed")
     public ApiResponse<EntityModel<Todo>> toggleComplete(@PathVariable Long id) {
-        Todo updated = service.toggleCompleted(id);
-        return ResponseFactory.success("Todo completion status changed", toEntityModel(updated));
+        Todo todo = service.toggleCompleted(id);
+        return ResponseFactory.success("Todo completion status changed", toEntityModel(todo));
     }
 
     private EntityModel<Todo> toEntityModel(Todo todo) {
