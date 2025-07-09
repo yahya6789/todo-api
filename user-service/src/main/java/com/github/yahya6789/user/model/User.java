@@ -1,28 +1,20 @@
 package com.github.yahya6789.user.model;
 
+import com.github.yahya6789.common.model.AuditableEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
 
 @Entity
 @Table(name = "users")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class User extends AbstractAuditableEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    private Long id;
-
+public class User extends AuditableEntity {
     @NotBlank
     private String name;
 

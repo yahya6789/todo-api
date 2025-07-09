@@ -1,5 +1,7 @@
 package com.github.yahya6789.todo.model;
 
+import com.github.yahya6789.common.model.AuditableEntity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,19 +15,15 @@ import lombok.Setter;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Todo extends AbstractAuditableEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    private Long id;
-
+public class Todo extends AuditableEntity {
     @NotBlank
     private String title;
 
     private boolean completed = false;
 
     // Required by JPA
-    protected Todo() {}
+    protected Todo() {
+    }
 
     public Todo(String title) {
         this.title = title;
