@@ -1,4 +1,4 @@
-package com.github.yahya6789.common.dto;
+package com.github.yahya6789.common.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,10 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CreateTodoRequestDto {
+public class CreateTodoDto {
     private String title;
     private long userId;
 
-    public CreateTodoRequestDto() {
+    public CreateTodoDto() {
     }
 }

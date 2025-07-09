@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.yahya6789.common.api.ApiResponse;
 import com.github.yahya6789.common.api.ResponseFactory;
-import com.github.yahya6789.common.dto.CreateTodoRequestDto;
 import com.github.yahya6789.common.dto.UserDto;
+import com.github.yahya6789.common.dto.request.CreateTodoDto;
 import com.github.yahya6789.todo.external.UserServiceLookup;
 import com.github.yahya6789.todo.model.Todo;
 import com.github.yahya6789.todo.service.TodoService;
@@ -51,7 +51,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public ApiResponse<EntityModel<Todo>> create(@Valid @RequestBody CreateTodoRequestDto request) {
+    public ApiResponse<EntityModel<Todo>> create(@Valid @RequestBody CreateTodoDto request) {
         UserDto userDto = userServiceLookup.findUserById(request.getUserId());
         Todo todo = service.create(new Todo(userDto.getId(), request.getTitle()));
         return ResponseFactory.success("Todo created", toEntityModel(todo));
