@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.yahya6789.common.api.ApiResponse;
 import com.github.yahya6789.common.api.ResponseFactory;
+import com.github.yahya6789.common.dto.CreateTodoRequestDto;
+import com.github.yahya6789.common.dto.UserDto;
+import com.github.yahya6789.todo.external.UserServiceClient;
 import com.github.yahya6789.todo.model.Todo;
 import com.github.yahya6789.todo.service.TodoService;
 
@@ -30,8 +33,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor
 public class TodoController {
-
     private final TodoService service;
+    private final UserServiceClient userServiceClient;
 
     @GetMapping
     public ApiResponse<PagedModel<EntityModel<Todo>>> findAll(Pageable pageable,
@@ -48,7 +51,9 @@ public class TodoController {
     }
 
     @PostMapping
-    public ApiResponse<EntityModel<Todo>> create(@Valid @RequestBody Todo todo) {
+    public ApiResponse<EntityModel<Todo>> create(@Valid @RequestBody CreateTodoRequestDto request) {
+        UserDto userDto = userServiceClient.findUserById(request.getUserId());
+        Todo todo = new Todo(userDto.getId(), request.getTitle());
         Todo saved = service.create(todo);
         return ResponseFactory.success("Todo created", toEntityModel(saved));
     }

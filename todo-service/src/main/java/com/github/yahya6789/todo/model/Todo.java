@@ -11,6 +11,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Todo extends AuditableEntity {
+    private long userId;
+
     @NotBlank
     private String title;
 
@@ -20,11 +22,13 @@ public class Todo extends AuditableEntity {
     protected Todo() {
     }
 
-    public Todo(String title) {
+    public Todo(long userId, String title) {
+        this.userId = userId;
         this.title = title;
     }
 
-    public Todo(String title, boolean completed) {
+    public Todo(long userId, String title, boolean completed) {
+        this.userId = userId;
         this.title = title;
         this.completed = completed;
     }
