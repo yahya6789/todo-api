@@ -38,13 +38,13 @@ public class TodoController {
             PagedResourcesAssembler<Todo> assembler) {
         Page<Todo> page = service.findAll(pageable);
         PagedModel<EntityModel<Todo>> pagedModel = assembler.toModel(page, this::toEntityModel);
-        return ResponseFactory.success(null, pagedModel);
+        return ResponseFactory.success("Todos fetched", pagedModel);
     }
 
     @GetMapping("/{id}")
     public ApiResponse<EntityModel<Todo>> findById(@PathVariable Long id) {
         Todo todo = service.findById(id);
-        return ResponseFactory.success(null, toEntityModel(todo));
+        return ResponseFactory.success("Todo found", toEntityModel(todo));
     }
 
     @PostMapping
