@@ -20,7 +20,7 @@ public class TodoInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (repository.count() == 0) {
             for (int i = 0; i < 55; i++) {
-                repository.save(new Todo(i, "Todo " + i, ThreadLocalRandom.current().nextBoolean()));
+                repository.save(new Todo(i + 1, "Todo " + i, ThreadLocalRandom.current().nextBoolean()));
             }
         }
     }
