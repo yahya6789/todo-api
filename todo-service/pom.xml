@@ -8,9 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.github.yahya6789</groupId>
     <artifactId>todo-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>todo-service</name>
 
     <dependencies>
